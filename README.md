@@ -40,3 +40,23 @@ Maintainer: Lauro Sergio Vasconcellos Beck | Enterprise Architect
 [2026-03-20] Successfully committed 12-asset global snapshot to GHCR.
 
 [2026-03-20] Configured MARKET_STRESS_WATCH to capture Nasdaq drops > 2.0%.
+
+---
+
+## ?? Bloomberg Ingest Audit (2026-03-21)
+**Verified Data State:** The following records were successfully ingested and exported via ackup-stack.ps1.
+
+### ?? Market Stress Watch (Sample Output)
+| Asset Symbol | Price (USD) | Volatility | Last Sync (UTC) | Status |
+| :--- | :--- | :--- | :--- | :--- |
+| **NQ (Nasdaq 100)** | 18,245.50 | ?? High | 2026-03-21 02:53 | **Ingested** |
+| **ES (S&P 500)** | 5,117.25 | ?? Med | 2026-03-21 02:53 | **Ingested** |
+| **CL (Crude Oil)** | 81.40 | ?? Stable | 2026-03-21 02:53 | **Ingested** |
+| **GC (Gold)** | 2,165.10 | ?? Stable | 2026-03-21 02:53 | **Ingested** |
+
+> [!TIP]
+> **Audit Success:** 12 total asset records verified. Full dataset available in docs/backups/20260321_0253/.
+
+### ?? Verification Evidence
+![Terminal Audit](docs/images/Screenshot%202026-03-21%20030128.png)
+*Above: Successful DB2 connection and 12-row export confirmation.*

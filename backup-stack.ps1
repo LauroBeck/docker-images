@@ -25,3 +25,25 @@ docker cp db2:/tmp/company_fundamentals.csv "$backupDir/company_fundamentals.csv
 docker exec -u db2inst1 db2 rm /tmp/backup.sql /tmp/market_prices.csv /tmp/company_fundamentals.csv
 
 Write-Host "Success: Backup stored in $backupDir" -ForegroundColor Green
+
+# --- Phase 4: Post-Export Analytics (Risk Assessment) ---
+Write-Host "
+--- ?? 03/21 Market Risk Assessment ---" -ForegroundColor Cyan
+if (Test-Path "$backupDir/market_prices.csv") {
+    $data = Import-Csv -Path "$backupDir/market_prices.csv" -Header "Symbol", "Price", "Volatility", "Timestamp", "Status"
+    
+    # Identify high-risk assets (Nasdaq/NQ etc.)
+    $highRisk = $data | Where-Object { $_.Volatility -like "*High*" }
+    $stable = $data | Where-Object { $_.Volatility -like "*Stable*" }
+    
+    Write-Host "Total Assets Audited: " -NoNewline; Write-Host "$($data.Count)" -ForegroundColor White
+    Write-Host "High Risk Alerts:     " -NoNewline; Write-Host "$($highRisk.Count)" -ForegroundColor Red
+    Write-Host "Stable Assets:        " -NoNewline; Write-Host "$($stable.Count)" -ForegroundColor Green
+    Write-Host "---------------------------------------"
+    
+    # Display the High Risk Watchlist
+    if ($highRisk) {
+        Write-Host "CRITICAL WATCHLIST:" -ForegroundColor Yellow
+        $highRisk | Select-Object Symbol, Price | Format-Table -AutoSize
+    }
+}

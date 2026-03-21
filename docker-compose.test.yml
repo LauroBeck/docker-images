@@ -1,0 +1,16 @@
+services:
+  test-db2:
+    image: ghcr.io/laurobeck/db2:latest
+    environment:
+      - DB2INST1_PASSWORD=test_pass
+      - DBNAME=test_fin
+    ports:
+      - "50001:50000"
+
+  test-runner:
+    image: ghcr.io/laurobeck/system-java17:1.0
+    depends_on:
+      - test-db2
+    environment:
+      - DB_URL=jdbc:db2://test-db2:50000/test_fin
+    command: ["./mvnw", "test"] # Runs your Java integration tests

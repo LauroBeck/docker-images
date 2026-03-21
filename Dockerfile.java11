@@ -1,0 +1,3 @@
+FROM eclipse-temurin:11-jre-focal
+LABEL org.opencontainers.image.source="https://github.com/LauroBeck/docker-images"
+LABEL org.opencontainers.image.description="Enterprise system backend (Java 11)"

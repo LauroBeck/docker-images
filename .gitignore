@@ -1,0 +1,11 @@
+.docker/
+*.log
+docker-compose.override.yml
+.env
+.env.local
+target/
+*.class
+*.jar
+
+db2_data/
+*.db2
